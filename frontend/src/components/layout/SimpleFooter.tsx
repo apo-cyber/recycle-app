@@ -1,165 +1,96 @@
-// src/components/layout/Footer.tsx
-
-import Link from "next/link";
-import {
-  HomeIcon,
-  TagIcon,
-  UserGroupIcon,
-  EnvelopeIcon,
-  CodeBracketIcon,
-} from "@heroicons/react/24/outline";
-
-export function Footer() {
-  const currentYear = new Date().getFullYear();
-
-  const footerLinks = [
-    {
-      title: "メニュー",
-      links: [
-        { href: "/", label: "ホーム", icon: HomeIcon },
-        { href: "/posts/new", label: "新規投稿", icon: CodeBracketIcon },
-        { href: "/tags", label: "タグ一覧", icon: TagIcon },
-      ],
-    },
-    {
-      title: "アカウント",
-      links: [
-        { href: "/profile", label: "プロフィール", icon: UserGroupIcon },
-        { href: "/login", label: "ログイン", icon: UserGroupIcon },
-        { href: "/signup", label: "新規登録", icon: UserGroupIcon },
-      ],
-    },
-    {
-      title: "情報",
-      links: [
-        { href: "/about", label: "このサイトについて", icon: EnvelopeIcon },
-        { href: "/terms", label: "利用規約", icon: EnvelopeIcon },
-        { href: "/privacy", label: "プライバシーポリシー", icon: EnvelopeIcon },
-      ],
-    },
-  ];
-
-  return (
-    <footer className="bg-gray-900 text-gray-300 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* ブランド情報 */}
-          <div className="col-span-1">
-            <h3 className="text-white text-lg font-bold mb-4">Blog App</h3>
-            <p className="text-sm text-gray-400">
-              Django REST FrameworkとNext.js
-              15で構築されたモダンなブログアプリケーション
-            </p>
-            <div className="mt-6 flex space-x-4">
-              {/* ソーシャルリンク（アイコンとして） */}
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <svg
-                  className="h-6 w-6"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <svg
-                  className="h-6 w-6"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          {/* リンクセクション */}
-          {footerLinks.map((section) => (
-            <div key={section.title}>
-              <h4 className="text-white font-semibold mb-4">{section.title}</h4>
-              <ul className="space-y-2">
-                {section.links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm hover:text-white transition-colors flex items-center gap-2"
-                    >
-                      <link.icon className="h-4 w-4" />
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        {/* 下部の著作権表示 */}
-        <div className="mt-8 pt-8 border-t border-gray-800">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-400">
-              © {currentYear} Blog App. All rights reserved.
-            </p>
-            <div className="mt-4 md:mt-0 flex space-x-6 text-sm">
-              <Link
-                href="/terms"
-                className="hover:text-white transition-colors"
-              >
-                利用規約
-              </Link>
-              <Link
-                href="/privacy"
-                className="hover:text-white transition-colors"
-              >
-                プライバシー
-              </Link>
-              <Link
-                href="/contact"
-                className="hover:text-white transition-colors"
-              >
-                お問い合わせ
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
 // src/components/layout/SimpleFooter.tsx
+
+import { HeartIcon } from "@heroicons/react/24/outline";
 
 export function SimpleFooter() {
   return (
-    <footer className="bg-white border-t mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="flex flex-col items-center justify-center text-center gap-2">
-          <img src="/cat.gif" alt="Dancing cat" className="w-32 h-auto" />
-          <p className="text-gray-600 text-sm">
-            <span className="hidden sm:inline">
-              © 2025-{new Date().getFullYear()} Apo_Blog. Made with ❤️ using
-              Django & Next.js
-            </span>
-            <span className="sm:hidden">
-              © 2025-{new Date().getFullYear()} Apo_Blog ❤️ using Django &
-              Next.js
-            </span>
-          </p>
+    <>
+      {/* シンプルフッター用スタイル */}
+      <style jsx global>{`
+        .simple-footer-gradient {
+          background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .simple-cat-hover {
+          transition: all 0.3s ease;
+        }
+
+        .simple-cat-hover:hover {
+          transform: scale(1.05) rotate(2deg);
+        }
+
+        .footer-card-simple {
+          backdrop-filter: blur(10px);
+          background: rgba(255, 255, 255, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cat-bounce-simple {
+          animation: gentle-bounce-simple 3s ease-in-out infinite;
+        }
+
+        @keyframes gentle-bounce-simple {
+          0%,
+          100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-3px);
+          }
+        }
+      `}</style>
+
+      <footer className="simple-footer-gradient border-t border-gray-200/50 mt-auto backdrop-blur-sm">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-col items-center justify-center text-center gap-3">
+            {/* コンパクトな猫セクション */}
+            <div className="footer-card-simple rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-300">
+              <div className="cat-bounce-simple simple-cat-hover mb-2">
+                <img
+                  src="/cat.gif"
+                  alt="Dancing cat"
+                  className="w-12 h-auto mx-auto rounded-lg shadow-sm"
+                />
+              </div>
+              <div className="flex items-center justify-center space-x-2">
+                <div className="w-4 h-4 bg-gradient-to-r from-orange-400 to-green-400 rounded-full flex items-center justify-center shadow-sm">
+                  <svg
+                    className="w-2 h-2 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={3}
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                </div>
+                <span
+                  className="text-sm font-bold bg-gradient-to-r from-orange-500 to-green-500 bg-clip-text text-transparent"
+                  style={{ fontFamily: "Space Grotesk, sans-serif" }}
+                >
+                  モノノワ
+                </span>
+              </div>
+            </div>
+
+            {/* コンパクトなコピーライト */}
+            <div className="text-center">
+              <p
+                className="text-gray-500 text-xs font-medium"
+                style={{ fontFamily: "Inter, sans-serif" }}
+              >
+                © 2025 モノノワ
+                <HeartIcon className="inline h-3 w-3 text-red-400 mx-1 animate-pulse" />
+                Django & Next.js
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 }

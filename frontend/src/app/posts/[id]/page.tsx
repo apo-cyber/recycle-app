@@ -106,7 +106,7 @@ export default function BlogPostDetailPage() {
   const isAuthor = user && post && user.username === post.author.username;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-orange-50">
       <Header />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -119,6 +119,9 @@ export default function BlogPostDetailPage() {
           記事一覧に戻る
         </Link>
 
+        <div className="font-medium text-gray-800 text-right">
+          画像をクリックして全景を表示
+        </div>
         <article className="bg-white rounded-lg shadow-md overflow-hidden">
           {/* アイキャッチ画像 */}
           {post.image && (
@@ -136,7 +139,6 @@ export default function BlogPostDetailPage() {
               />
             </div>
           )}
-
           <div className="p-8">
             {/* 下書きバッジ */}
             {!post.is_published && (

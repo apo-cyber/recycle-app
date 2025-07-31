@@ -37,10 +37,52 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-orange-50">
       <Header />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* コンパクトなヒーローセクション */}
+        <div className="bg-white rounded-2xl shadow-sm p-6 mb-6 border border-orange-100">
+          <div className="text-center">
+            {/* コンパクトなアイコン付きロゴ */}
+            <div className="flex items-center justify-center mb-4">
+              <div className="flex items-center space-x-2 bg-gradient-to-r from-orange-50 to-green-50 px-4 py-2 rounded-full border border-orange-200/50">
+                <div className="w-8 h-8 bg-gradient-to-r from-orange-400 to-green-400 rounded-full flex items-center justify-center shadow-sm">
+                  <svg
+                    className="w-4 h-4 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                </div>
+                <span
+                  className="text-xl font-bold bg-gradient-to-r from-orange-500 to-green-500 bg-clip-text text-transparent"
+                  style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+                >
+                  モノノワ
+                </span>
+              </div>
+            </div>
+
+            <h1
+              className="text-2xl font-bold text-gray-900 mb-3"
+              style={{ fontFamily: "Inter, sans-serif" }}
+            >
+              社内の<span className="text-orange-500">不要備品</span>を
+              <span className="text-green-500">有効活用</span>しませんか？
+            </h1>
+            <p className="text-base text-gray-600 max-w-xl mx-auto">
+              部署間でオフィス用品を共有し、調達コストを削減。環境にも優しい循環型オフィスを実現しましょう。
+            </p>
+          </div>
+        </div>
         {/* 検索・フィルター */}
         <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
           <form onSubmit={handleSearch} className="flex gap-4 mb-4">
