@@ -38,7 +38,9 @@ export default function LoginPage() {
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <Link href="/" className="inline-block">
-            <h1 className="text-3xl font-bold text-gray-900">Blog App</h1>
+            <h1 className="text-5xl text- bold bg-gradient-to-r from-orange-500 via-orange-600 to-green-500 bg-clip-text text-transparent tracking-tight">
+              モノノワ
+            </h1>
           </Link>
           <p className="mt-2 text-gray-600">アカウントにログイン</p>
         </div>
