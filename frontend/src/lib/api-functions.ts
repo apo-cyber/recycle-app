@@ -54,6 +54,7 @@ export const createBlogPost = async (
   formData.append("title", data.title);
   formData.append("description", data.description);
   formData.append("is_published", String(data.is_published));
+  formData.append("is_sold_out", String(data.is_sold_out ?? false));
 
   // タグIDを追加
   data.tag_ids.forEach((tagId) => {
@@ -82,6 +83,7 @@ export const updateBlogPost = async (
   formData.append("title", data.title);
   formData.append("description", data.description);
   formData.append("is_published", String(data.is_published));
+  formData.append("is_sold_out", String(data.is_sold_out ?? false));
 
   // タグIDを追加
   data.tag_ids.forEach((tagId) => {

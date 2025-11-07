@@ -37,14 +37,13 @@ class BlogPost(models.Model):
     description = models.TextField(verbose_name="説明・本文")
 
     # 画像（画像は'blog_images/'フォルダに保存される）
-    image = models.ImageField(
-        upload_to="blog_images/", blank=True, null=True, verbose_name="画像"
-    )
+    image = models.ImageField(upload_to="blog_images/", blank=True, null=True, verbose_name="画像")
 
     # タグ（多対多の関係：1つの記事に複数のタグ、1つのタグは複数の記事に使える）
-    tags = models.ManyToManyField(
-        Tag, related_name="blog_posts", blank=True, verbose_name="タグ"
-    )
+    tags = models.ManyToManyField(Tag, related_name="blog_posts", blank=True, verbose_name="タグ")
+
+    # 販売状況
+    is_sold_out = models.BooleanField(default=False)
 
     # タイムスタンプ
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="作成日時")
@@ -159,8 +158,4 @@ class Comment(models.Model):
 
     def get_all_replies(self):
         """すべての返信を階層的に取得"""
-        return (
-            self.replies.filter(is_active=True)
-            .select_related("author")
-            .order_by("created_at")
-        )
+        return self.replies.filter(is_active=True).select_related("author").order_by("created_at")

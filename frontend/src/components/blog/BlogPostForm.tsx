@@ -28,6 +28,7 @@ const blogPostSchema = z.object({
   description: z.string().min(1, "本文は必須です"),
   tag_ids: z.array(z.number()),
   is_published: z.boolean(),
+  is_sold_out: z.boolean(), // ← この1行を追加
 });
 
 type BlogPostFormData = z.infer<typeof blogPostSchema>;
@@ -67,6 +68,7 @@ export function BlogPostForm({
       description: post?.description || "",
       tag_ids: post?.tags.map((tag) => tag.id) || [],
       is_published: post?.is_published ?? true,
+      is_sold_out: post?.is_sold_out ?? false,
     },
   });
 
@@ -149,6 +151,10 @@ export function BlogPostForm({
 
   // フォーム送信処理
   const handleFormSubmit = async (data: BlogPostFormData) => {
+    console.log("=== フォーム送信開始 ==="); // ← このログが追加されているか確認
+    console.log("送信データ:", data);
+    console.log("is_sold_out の値:", data.is_sold_out);
+    console.log("is_sold_out の型:", typeof data.is_sold_out);
     await onSubmit({
       ...data,
       image: imageFile,
@@ -352,6 +358,23 @@ export function BlogPostForm({
         <p className="mt-1 text-xs text-gray-500">
           チェックを外すと下書きとして保存され、自分だけが見ることができます
         </p>
+      </div>
+
+      {/* SOLD OUT設定 */}
+      <div className="flex justify-end items-center pt-4 border-t border-gray-200">
+        <label className="flex items-center cursor-pointer">
+          <span className="mr-3 text-sm font-medium text-gray-700">
+            SOLD OUT
+          </span>
+          <div className="relative">
+            <input
+              {...register("is_sold_out")}
+              type="checkbox"
+              className="sr-only peer"
+            />
+            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+          </div>
+        </label>
       </div>
 
       {/* 送信ボタン */}

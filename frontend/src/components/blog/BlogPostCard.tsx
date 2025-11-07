@@ -24,6 +24,8 @@ interface BlogPostCardProps {
 }
 
 export function BlogPostCard({ post }: BlogPostCardProps) {
+  console.log("Post data:", post); // ← デバッグ用
+  console.log("is_sold_out:", post.is_sold_out); // ← デバッグ用
   const likeMutation = useLikeBlogPost();
   const [commentCount, setCommentCount] = useState<number>(0);
 
@@ -59,6 +61,35 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
               className="object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
+
+            {/* ↓↓↓ ここに追加 ↓↓↓ */}
+            {/* SOLD OUTオーバーレイ */}
+            {post.is_sold_out && (
+              <div className="absolute inset-0 pointer-events-none">
+                {/* 半透明の暗いオーバーレイ */}
+                <div className="absolute inset-0 bg-gradient-to-br from-black/50 to-black/30"></div>
+
+                {/* SOLD OUTテキスト（左下から右上へ斜め） */}
+                <div
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[-25deg]"
+                  style={{ transformOrigin: "center" }}
+                >
+                  <div className="relative">
+                    {/* 影のレイヤー */}
+                    <div className="absolute inset-0 translate-x-1 translate-y-1 opacity-50">
+                      <span className="block bg-black text-transparent bg-clip-text font-black text-4xl md:text-5xl tracking-wider px-8 py-3">
+                        SOLD OUT
+                      </span>
+                    </div>
+                    {/* メインテキスト */}
+                    <span className="relative block bg-gradient-to-r from-red-600 via-red-500 to-orange-500 text-white font-black text-4xl md:text-5xl tracking-wider px-8 py-3 shadow-2xl border-4 border-white/90">
+                      SOLD OUT
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+            {/* ↑↑↑ ここまで追加 ↑↑↑ */}
           </div>
         )}
 

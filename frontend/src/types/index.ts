@@ -22,6 +22,7 @@ export interface BlogPost {
   image: string | null;
   author: User;
   tags: Tag[];
+  is_sold_out: boolean; // 追加
   likes_count: number;
   is_liked: boolean;
   created_at: string;
@@ -37,6 +38,7 @@ export interface BlogPostInput {
   image?: File | null;
   tag_ids: number[];
   is_published: boolean;
+  is_sold_out: boolean;
 }
 
 // いいね型
