@@ -1,10 +1,9 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  // ESLintエラーを無視してビルド
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // TypeScriptエラーも無視（必要に応じて）
   typescript: {
     ignoreBuildErrors: false,
   },
@@ -13,20 +12,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
-
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {
-//   images: {
-//     remotePatterns: [
-//       {
-//         protocol: "http",
-//         hostname: "localhost",
-//         port: "8000",
-//         pathname: "/media/**",
-//       },
-//     ],
-//   },
-// };
-
-// module.exports = nextConfig;
+export default nextConfig;
