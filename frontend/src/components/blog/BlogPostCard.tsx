@@ -24,8 +24,6 @@ interface BlogPostCardProps {
 }
 
 export function BlogPostCard({ post }: BlogPostCardProps) {
-  console.log("Post data:", post); // ← デバッグ用
-  console.log("is_sold_out:", post.is_sold_out); // ← デバッグ用
   const likeMutation = useLikeBlogPost();
   const [commentCount, setCommentCount] = useState<number>(0);
 

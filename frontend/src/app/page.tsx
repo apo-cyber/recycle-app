@@ -17,6 +17,7 @@ export default function HomePage() {
   const [selectedTag, setSelectedTag] = useState<string>("");
   const [ordering, setOrdering] = useState("-created_at");
   const [page, setPage] = useState(1);
+  const [hideSoldOut, setHideSoldOut] = useState(false); // SOLD OUT非表示フラグ
 
   const {
     data: postsData,
@@ -35,6 +36,14 @@ export default function HomePage() {
     e.preventDefault();
     setPage(1);
   };
+
+  // SOLD OUT商品をフィルタリング
+  const filteredResults = postsData?.results.filter((post) => {
+    if (hideSoldOut && post.is_sold_out) {
+      return false; // SOLD OUT商品を除外
+    }
+    return true;
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-orange-50">
@@ -133,6 +142,19 @@ export default function HomePage() {
               <option value="created_at">古い順</option>
               <option value="-updated_at">更新順</option>
             </select>
+
+            {/* SOLD OUT非表示チェックボックス */}
+            <label className="flex items-center gap-2 cursor-pointer bg-orange-50 px-3 py-1.5 rounded-md border border-orange-200 hover:bg-orange-100 transition-colors">
+              <input
+                type="checkbox"
+                checked={hideSoldOut}
+                onChange={(e) => setHideSoldOut(e.target.checked)}
+                className="w-4 h-4 text-orange-500 bg-white border-gray-300 rounded focus:ring-2 focus:ring-orange-500"
+              />
+              <span className="text-sm font-medium text-gray-700">
+                SOLD OUT商品を非表示
+              </span>
+            </label>
           </div>
         </div>
 
@@ -143,14 +165,14 @@ export default function HomePage() {
           <div className="text-center py-12">
             <p className="text-red-600">エラーが発生しました</p>
           </div>
-        ) : postsData?.results.length === 0 ? (
+        ) : filteredResults?.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-500">記事が見つかりませんでした</p>
           </div>
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {postsData?.results.map((post) => (
+              {filteredResults?.map((post) => (
                 <BlogPostCard key={post.id} post={post} />
               ))}
             </div>
