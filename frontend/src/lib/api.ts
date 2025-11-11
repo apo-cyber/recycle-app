@@ -34,8 +34,8 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // 認証エラーの場合の処理
-      if (window.location.pathname !== "/login") {
+      // 認証エラーの場合の処理（クライアントサイドのみ）
+      if (typeof window !== 'undefined' && window.location.pathname !== "/login") {
         window.location.href = "/login";
       }
     }
@@ -45,6 +45,11 @@ api.interceptors.response.use(
 
 // Cookieを取得するヘルパー関数
 function getCookie(name: string): string | null {
+  // サーバーサイドではCookieが取得できないのでnullを返す
+  if (typeof document === 'undefined') {
+    return null;
+  }
+
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) {

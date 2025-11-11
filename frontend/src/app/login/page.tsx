@@ -38,9 +38,29 @@ export default function LoginPage() {
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <Link href="/" className="inline-block">
-            <h1 className="text-5xl text- bold bg-gradient-to-r from-orange-500 via-orange-600 to-green-500 bg-clip-text text-transparent tracking-tight">
-              モノノワ
-            </h1>
+            <div className="flex items-center gap-4">
+              <span className="w-16 h-16 bg-gradient-to-r from-orange-400 to-green-400 rounded-full flex items-center justify-center shadow-sm">
+                <svg
+                  className="w-10 h-10 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  />
+                </svg>
+              </span>
+              <span
+                className="text-5xl font-bold bg-gradient-to-r from-orange-500 to-green-500 bg-clip-text text-transparent"
+                style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+              >
+                モノノワ
+              </span>
+            </div>
           </Link>
           <p className="mt-2 text-gray-600">アカウントにログイン</p>
         </div>

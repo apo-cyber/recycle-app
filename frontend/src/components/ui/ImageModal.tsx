@@ -11,7 +11,7 @@ interface ImageModalProps {
   alt: string;
   isOpen: boolean;
   onClose: () => void;
-  caption?: string; // ← これが追加したい行
+  caption?: string;
 }
 
 export function ImageModal({
@@ -41,45 +41,55 @@ export function ImageModal({
     };
   }, [isOpen, onClose]);
 
+  if (!isOpen) return null;
+
   return (
-    <div
-      className={`fixed inset-0 z-50 flex items-start justify-center pt-6 transition-opacity duration-300 ease-in-out  ${
-        isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-      }`}
-      onClick={onClose}
-    >
-      {/* 背景のオーバーレイ */}
-      <div className="absolute inset-0 bg-gray-50 bg-opacity-70" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8">
+      {/* 背景のオーバーレイ（クリック無効） */}
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
 
-      {/* モーダルコンテンツ */}
-      <div className="relative z-10 max-w-7xl max-h-[90vh] mx-4">
-        {/* 閉じるボタン */}
-        <button
-          onClick={onClose}
-          className="absolute top-6 right-6 z-50 text-white hover:text-gray-300 transition-colors"
-          aria-label="閉じる"
-        >
-          <XMarkIcon className="h-8 w-8" />
-        </button>
+      {/* モーダルコンテンツ - 横幅を狭く */}
+      <div className="relative z-10 w-full max-w-4xl animate-in fade-in zoom-in-95 duration-300">
+        {/* グラデーションボーダー付き画像コンテナ */}
+        <div className="p-1 bg-gradient-to-r from-orange-400 via-green-400 to-orange-400 rounded-lg shadow-2xl relative">
+          {/* 閉じるボタン（画像の右上） */}
+          <button
+            onClick={onClose}
+            className="absolute -top-3 -right-3 z-50 bg-gradient-to-r from-orange-500 to-green-500 hover:from-orange-600 hover:to-green-600 text-white p-2.5 rounded-full transition-all duration-200 hover:scale-110 shadow-lg"
+            aria-label="閉じる"
+          >
+            <XMarkIcon className="h-6 w-6" />
+          </button>
 
-        {/* 画像 */}
-        <div className="relative" onClick={(e) => e.stopPropagation()}>
-          <Image
-            src={src}
-            alt={alt}
-            width={1920}
-            height={1080}
-            className="max-w-full max-h-[85vh] w-auto h-auto object-contain"
-            priority
-          />
+          <div className="bg-white rounded-md overflow-hidden">
+            <Image
+              src={src}
+              alt={alt}
+              width={1200}
+              height={800}
+              className="max-w-full max-h-[75vh] w-auto h-auto object-contain mx-auto"
+              priority
+            />
+          </div>
         </div>
 
-        {/* 画像の説明（タイトルラベル付き） */}
+        {/* キャプション */}
         {caption && (
-          <div className="text-black text-center mt-4 text-sm">
-            <p>{caption}</p>
+          <div className="mt-4 text-center">
+            <div className="inline-block bg-white/95 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg">
+              <p className="text-gray-800 font-medium text-sm sm:text-base">
+                {caption}
+              </p>
+            </div>
           </div>
         )}
+
+        {/* ヒントテキスト */}
+        <div className="mt-3 text-center">
+          <p className="text-white/70 text-xs sm:text-sm">
+            右上の × ボタンまたは ESC キーで閉じる
+          </p>
+        </div>
       </div>
     </div>
   );

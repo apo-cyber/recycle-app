@@ -17,12 +17,11 @@ export async function POST(request: NextRequest) {
         message: "認証成功",
       });
 
-      // 1時間の有効期限（確実に動作）
       response.cookies.set("company-auth", "authenticated", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
-        maxAge: 60 * 60, // 1時間 = 3600秒
+        // maxAge: 60 * 60,  ← 削除（Session cookieになる）
         path: "/",
       });
 

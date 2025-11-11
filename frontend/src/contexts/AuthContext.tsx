@@ -1,5 +1,3 @@
-// src/contexts/AuthContext.tsx
-
 "use client";
 
 import {
@@ -9,6 +7,7 @@ import {
   useEffect,
   ReactNode,
 } from "react";
+import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 import { signup as signupApi } from "@/lib/api-functions";
 import { User } from "@/types";
@@ -36,6 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   // 初期化時に現在のユーザー情報を取得
   useEffect(() => {
@@ -58,11 +58,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const response = await api.post("/auth/login/", { username, password });
       setUser(response.data.user);
-      // キャッシュをクリア
       queryClient.clear();
       toast.success("ログインしました");
-      // 即座にページをリロード
-      window.location.href = "/";
+      router.push("/");
+      router.refresh();
     } catch (error: any) {
       toast.error(error.response?.data?.detail || "ログインに失敗しました");
       throw error;
@@ -77,7 +76,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (error: any) {
       const errorData = error.response?.data;
       if (errorData) {
-        // フィールドごとのエラーメッセージを表示
         Object.entries(errorData).forEach(([field, messages]) => {
           if (Array.isArray(messages)) {
             messages.forEach((message) => toast.error(`${field}: ${message}`));
@@ -96,11 +94,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       await api.post("/auth/logout/");
       setUser(null);
-      // キャッシュをクリアしてから即座にリロード
       queryClient.clear();
       toast.success("ログアウトしました");
-      // 即座にページをリロード
-      window.location.href = "/";
+      router.push("/");
+      router.refresh();
     } catch (error) {
       toast.error("ログアウトに失敗しました");
     }

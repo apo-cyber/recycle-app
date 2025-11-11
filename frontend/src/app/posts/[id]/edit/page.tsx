@@ -6,11 +6,20 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { useBlogPost, useUpdateBlogPost } from "@/hooks/useBlogPosts";
-import { BlogPostForm } from "@/components/blog/BlogPostForm";
 import { Header } from "@/components/layout/Header";
 import { Card } from "@/components/ui/Card";
 import { Loading } from "@/components/ui/Loading";
 import { BlogPostInput } from "@/types";
+import dynamic from "next/dynamic";
+
+// BlogPostFormを動的インポート（SSR無効化）
+const BlogPostForm = dynamic(
+  () => import("@/components/blog/BlogPostForm").then((mod) => ({ default: mod.BlogPostForm })),
+  {
+    ssr: false,
+    loading: () => <Loading />,
+  }
+);
 
 export default function EditPostPage() {
   const params = useParams();
@@ -59,7 +68,6 @@ export default function EditPostPage() {
       <Header />
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* 戻るボタン */}
         <Link
           href={`/posts/${postId}`}
           className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-6"

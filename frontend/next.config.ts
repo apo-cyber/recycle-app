@@ -16,16 +16,19 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "blog.apo-cyber.com",
+        hostname: "sc-cyber.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.sc-cyber.com",
       },
     ],
   },
-  // 本番ビルド時にconsole.logを自動削除
   compiler: {
     removeConsole:
       process.env.NODE_ENV === "production"
         ? {
-            exclude: ["error", "warn"], // error と warn は残す
+            exclude: ["error", "warn"],
           }
         : false,
   },

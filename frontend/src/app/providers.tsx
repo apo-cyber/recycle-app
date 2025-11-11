@@ -5,7 +5,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/contexts/AuthContext";
-import { useCompanyAuthCleanup } from "@/hooks/useCompanyAuthCleanup";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -19,8 +18,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
         },
       })
   );
-
-  useCompanyAuthCleanup();
 
   return (
     <QueryClientProvider client={queryClient}>
